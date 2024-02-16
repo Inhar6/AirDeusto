@@ -7,11 +7,13 @@ public class Avion implements Comparable<Avion>{
 	
 	//Atributos
 	private int id;
+	private String compania;
 	private String paisOrg;
 	private String paisDest;
 	private int capacidad;
 	private double duracionViaje;
 	private long horaSalida;
+	private int precio;
 	private List<Tarjeta> pasajeros;
 	private Map<Integer, Usuario> mapaPasajeros;
 	
@@ -23,7 +25,7 @@ public class Avion implements Comparable<Avion>{
 	}
 	
 	public Avion(int id, String paisOrg, String paisDest, int capacidad, double duracionViaje, long horaSalida,
-			List<Tarjeta> pasajeros,Map<Integer, Usuario> mapaPasajeros) {
+			List<Tarjeta> pasajeros,Map<Integer, Usuario> mapaPasajeros, String compania, int precio) {
 		super();
 		this.id = id;
 		this.paisOrg = paisOrg;
@@ -33,6 +35,8 @@ public class Avion implements Comparable<Avion>{
 		this.horaSalida = horaSalida;
 		this.pasajeros = pasajeros;
 		this.mapaPasajeros = mapaPasajeros;
+		this.compania = compania;
+		this.precio = precio;
 	}
 
 	
@@ -99,6 +103,21 @@ public class Avion implements Comparable<Avion>{
 	public void setMapaPasajeros(Map<Integer, Usuario> mapaPasajeros) {
 		this.mapaPasajeros = mapaPasajeros;
 	}
+	public String getCompania() {
+		return compania;
+	}
+	
+	public void setCompania(String compania) {
+		this.compania = compania;
+	}
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+
 	//Metodos
 	//TODO
 	public void addLstPasajero(Tarjeta trj){
