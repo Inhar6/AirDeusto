@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import domain.Usuario;
 import main.Main;
 
 public class VentanaPresentacion extends JFrame{
@@ -43,7 +44,8 @@ public class VentanaPresentacion extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new VentanaPrincipal(Main.vuelos);
+				Usuario u = new Usuario();
+				new VentanaPrincipal(u ,Main.vuelos);
 			}
 		});
 		
@@ -52,7 +54,7 @@ public class VentanaPresentacion extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new VentanaPrincipal(Main.vuelos);
+				new VentanaInicioSesion();
 			}
 		});
 			

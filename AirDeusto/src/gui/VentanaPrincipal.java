@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import domain.Avion;
+import domain.Usuario;
 import main.Main;
 
 public class VentanaPrincipal extends JFrame{
@@ -36,7 +37,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	
 	
-	public VentanaPrincipal(List<Avion> lstVuelos) {
+	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
 		setTitle("AirDeusto");
 		setSize(850,600);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
