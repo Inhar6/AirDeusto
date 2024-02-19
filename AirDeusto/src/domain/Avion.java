@@ -18,6 +18,10 @@ public class Avion implements Comparable<Avion>{
 	private Map<Integer, Usuario> mapaPasajeros;
 	
 	//Constructores
+	public Avion() {
+		super();
+	}
+	
 	public Avion(int id, int capacidad) {
 		super();
 		this.id = id;

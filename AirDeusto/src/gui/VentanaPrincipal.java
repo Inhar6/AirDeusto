@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Avion;
 import domain.Usuario;
@@ -40,7 +42,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	//Botones
 	private JButton btnUsuario;
-	
+	private JButton btnReserva;
 	
 	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
 		setTitle("AirDeusto");
@@ -61,6 +63,8 @@ public class VentanaPrincipal extends JFrame{
 		}
 		//Botones
 		btnUsuario = new JButton("Perfil");
+		btnReserva = new JButton("Reservar Plaza");
+		btnReserva.setEnabled(false);
 		
 		//Tabla
 		dtmVuelos = new DefaultTableModel();
@@ -69,6 +73,7 @@ public class VentanaPrincipal extends JFrame{
 				dtmVuelos.addRow(new Object[] {avion.getPaisOrg()});
 			}
 		tablaVuelos = new JTable(dtmVuelos);
+		tablaVuelos.setDefaultRenderer(getClass(), new MyTableRender());
 		scrollVuelos = new JScrollPane(tablaVuelos);
 		
 		setLayout(new BorderLayout());
@@ -88,7 +93,9 @@ public class VentanaPrincipal extends JFrame{
 				pBajo.add(scrollVuelos, BorderLayout.CENTER);
 			pGeneral.add(pBajo);
 		add(pGeneral, BorderLayout.CENTER);
-		
+		JPanel pSur = new JPanel(new FlowLayout());
+			pSur.add(btnReserva);
+		add(pSur, BorderLayout.SOUTH);
 		
 		//ActionListeners
 		btnUsuario.addActionListener(new ActionListener() {
@@ -102,6 +109,28 @@ public class VentanaPrincipal extends JFrame{
 		
 		
 		setVisible(true);
+	}
+	
+	//Render
+	class MyTableRender extends JLabel implements TableCellRenderer{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			setText(value.toString());
+			setOpaque(true);
+			setHorizontalAlignment(CENTER);
+			if(isSelected) {
+				btnReserva.setEnabled(true);
+			}
+			return this;
+		}
+		
 	}
 	
 
