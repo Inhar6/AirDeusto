@@ -1,11 +1,13 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,6 +28,7 @@ public class VentanaUsuario extends JFrame{
 	private static final long serialVersionUID = 1L;
 	//Elementos
 	//Parte Alta
+	private JLabel cabecera;
 	private JLabel nombre;
 	private JTextField txtNombre;
 	private JLabel apellido;
@@ -42,6 +45,11 @@ public class VentanaUsuario extends JFrame{
 	private DefaultListModel<Tarjeta> dlmTarjetas;
 	private JScrollPane scroll;
 	
+	//Botones
+	private JButton btnGuardarDatos;
+	private JButton btnInfo;
+	private JButton btnEditar;
+	
 	
 	public VentanaUsuario(Usuario user) {
 		setTitle("Usuario");
@@ -51,11 +59,12 @@ public class VentanaUsuario extends JFrame{
 
 		//Elementos
 		//Parte Alta
-		nombre = new JLabel("Nombre");
-		apellido = new JLabel("Apellido");
-		nUsuario = new JLabel("Nombre de Usuario");
-		contrasena = new JLabel("Contrasena");
-		DNI = new JLabel("DNI");
+		cabecera = new JLabel("Perfil de Usuario");
+		nombre = new JLabel("Nombre: ");
+		apellido = new JLabel("Apellido: ");
+		nUsuario = new JLabel("Usuario: ");
+		contrasena = new JLabel("Contrasena: ");
+		DNI = new JLabel("DNI: ");
 		txtNombre = new JTextField(20);
 			txtNombre.setText(user.getNombre());
 		txtApellido = new JTextField(20);
@@ -80,10 +89,37 @@ public class VentanaUsuario extends JFrame{
 		
 		jLstTarjetas = new JList<Tarjeta>(dlmTarjetas);
 		scroll = new JScrollPane(jLstTarjetas);
+		//Botones
+		btnInfo = new JButton("Mostrar Info");
+		btnGuardarDatos = new JButton("Guardar Datos");
+		btnEditar = new JButton("Editar Datos");
 		
 		//Paneles
-		JPanel PGeneral = new JPanel(new GridLayout(2, 1));
-		JPanel PAlto = new JPanel(new GridLayout(3,2));
+		JPanel p = new JPanel(new BorderLayout());
+		JPanel pCabecera = new JPanel(new FlowLayout());
+			pCabecera.add(cabecera);
+			pCabecera.setBackground(Color.lightGray);
+		p.add(pCabecera, BorderLayout.NORTH);
+		JPanel pSur = new JPanel(new GridLayout(1,2));
+			JPanel pSurIzq = new JPanel(new FlowLayout());
+			pSurIzq.add(btnEditar);
+			pSurIzq.add(btnGuardarDatos);
+			pSurIzq.setBackground(Color.lightGray);
+			JPanel pSurDrch = new JPanel(new FlowLayout());
+			pSurDrch.add(btnInfo);
+			pSurDrch.setBackground(Color.lightGray);
+		pSur.add(pSurIzq);
+		pSur.add(pSurDrch);
+		pSur.setBackground(Color.lightGray);
+		p.add(pSur, BorderLayout.SOUTH);
+		JPanel pEste = new JPanel(new FlowLayout());
+			pEste.setBackground(Color.lightGray);
+		p.add(pEste, BorderLayout.EAST);
+		JPanel pOeste = new JPanel(new FlowLayout());
+			pOeste.setBackground(Color.lightGray);
+		p.add(pOeste, BorderLayout.WEST);
+		JPanel PGeneral = new JPanel(new GridLayout(1, 2));
+		JPanel PIzq = new JPanel(new GridLayout(3,1));
 			JPanel PNombre = new JPanel(new FlowLayout());
 				PNombre.add(nombre);
 				PNombre.add(txtNombre);
@@ -93,24 +129,29 @@ public class VentanaUsuario extends JFrame{
 			JPanel PDNI = new JPanel();
 				PDNI.add(DNI);
 				PDNI.add(txtDNI);
-			JPanel PNUsuario = new JPanel();
-				PNUsuario.add(nUsuario);
-				PNUsuario.add(txtnUsuario);
-			JPanel PContrasena = new JPanel();
-				PContrasena.add(contrasena);
-				PContrasena.add(txtContrasena);
-		PAlto.add(PNombre);
-		PAlto.add(PApellido);
-		PAlto.add(PDNI);
-		PAlto.add(PNUsuario);
-		PAlto.add(PContrasena);
-		JPanel PBajo = new JPanel();
-			PBajo.add(scroll);
-			PBajo.setBorder(tituloCartera);
-		PGeneral.add(PAlto);
-		PGeneral.add(PBajo);
+			PIzq.add(PNombre);
+			PIzq.add(PApellido);
+			PIzq.add(PDNI);
+		JPanel PDrch = new JPanel(new GridLayout(2,1));
+			JPanel PDrchAlto = new JPanel(new GridLayout(2,1));
+				JPanel PNUsuario = new JPanel();
+					PNUsuario.add(nUsuario);
+					PNUsuario.add(txtnUsuario);
+				JPanel PContrasena = new JPanel();
+					PContrasena.add(contrasena);
+					PContrasena.add(txtContrasena);
+			PDrchAlto.add(PNUsuario);
+			PDrchAlto.add(PContrasena);	
+			JPanel PDrchBajo = new JPanel(new BorderLayout());
+				PDrchBajo.add(scroll, BorderLayout.CENTER);
+				PDrchBajo.setBorder(tituloCartera);
+			PDrch.add(PDrchAlto);
+			PDrch.add(PDrchBajo);
+		PGeneral.add(PIzq);
+		PGeneral.add(PDrch);
 		
-		add(PGeneral);
+		p.add(PGeneral, BorderLayout.CENTER);
+		add(p);
 		
 		setVisible(true);
 	}

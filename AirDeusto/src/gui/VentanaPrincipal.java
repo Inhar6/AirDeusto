@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +38,8 @@ public class VentanaPrincipal extends JFrame{
 	private DefaultTableModel dtmVuelos;
 	private JScrollPane scrollVuelos;
 	
+	//Botones
+	private JButton btnUsuario;
 	
 	
 	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
@@ -54,6 +59,8 @@ public class VentanaPrincipal extends JFrame{
 		for(String pais :Main.paises) {
 			comboBox.addItem(pais);
 		}
+		//Botones
+		btnUsuario = new JButton("Perfil");
 		
 		//Tabla
 		dtmVuelos = new DefaultTableModel();
@@ -64,24 +71,36 @@ public class VentanaPrincipal extends JFrame{
 		tablaVuelos = new JTable(dtmVuelos);
 		scrollVuelos = new JScrollPane(tablaVuelos);
 		
-		setLayout(new GridLayout(2,1));
-		JPanel pAlto = new JPanel(new GridLayout(2,1));
-			JPanel pSuperior = new JPanel(new GridLayout(2,1));
-				JPanel pTitulo = new JPanel(new FlowLayout());
-					pTitulo.add(titulo);
-					pTitulo.setBackground(Color.lightGray);
-				JPanel pOpciones = new JPanel(new FlowLayout());
-					pOpciones.add(destino);	
-					pOpciones.add(comboBox);
-				pSuperior.add(pTitulo);
-				pSuperior.add(pOpciones);				
-				pSuperior.setBackground(Color.LIGHT_GRAY);
-			pAlto.add(pSuperior);
-		JPanel pBajo = new JPanel(new BorderLayout());
-			pBajo.add(scrollVuelos, BorderLayout.CENTER);
-
-		add(pAlto);
-		add(pBajo);
+		setLayout(new BorderLayout());
+		JPanel pCabecera = new JPanel(new FlowLayout());
+			pCabecera.add(titulo);
+			pCabecera.setBackground(Color.lightGray);
+		add(pCabecera, BorderLayout.NORTH);
+		JPanel pGeneral = new JPanel(new GridLayout(2,1));
+			JPanel pOpciones = new JPanel(new FlowLayout());
+				pOpciones.add(destino);	
+				pOpciones.add(comboBox);
+				if(user.getNombre() != null) {
+					pOpciones.add(btnUsuario);
+				}
+			pGeneral.add(pOpciones);
+			JPanel pBajo = new JPanel(new BorderLayout());
+				pBajo.add(scrollVuelos, BorderLayout.CENTER);
+			pGeneral.add(pBajo);
+		add(pGeneral, BorderLayout.CENTER);
+		
+		
+		//ActionListeners
+		btnUsuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new VentanaUsuario(user);
+			}
+		});
+		
+		
 		setVisible(true);
 	}
 	
