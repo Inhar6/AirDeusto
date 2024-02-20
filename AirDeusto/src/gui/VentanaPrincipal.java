@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Avion;
@@ -37,12 +37,15 @@ public class VentanaPrincipal extends JFrame{
 
 	//Tabla
 	private JTable tablaVuelos;
-	private DefaultTableModel dtmVuelos;
 	private JScrollPane scrollVuelos;
 	
 	//Botones
 	private JButton btnUsuario;
 	private JButton btnReserva;
+	private JButton btnBusqueda;
+	
+	//Objetos
+	private Avion avion;
 	
 	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
 		setTitle("AirDeusto");
@@ -64,22 +67,22 @@ public class VentanaPrincipal extends JFrame{
 		//Botones
 		btnUsuario = new JButton("Perfil");
 		btnReserva = new JButton("Reservar Plaza");
-		btnReserva.setEnabled(false);
+			btnReserva.setEnabled(false);
+		btnBusqueda = new JButton("Buscar");
+		
+		//Objetos
+		avion = new Avion();
 		
 		//Tabla
-		dtmVuelos = new DefaultTableModel();
-			dtmVuelos.addColumn("Destino");
-			for(Avion avion:lstVuelos) {
-				dtmVuelos.addRow(new Object[] {avion.getPaisOrg()});
-			}
-		tablaVuelos = new JTable(dtmVuelos);
-		tablaVuelos.setDefaultRenderer(getClass(), new MyTableRender());
+		TableModel modelo = new TableModel(lstVuelos);
+		tablaVuelos = new JTable(modelo);
+		tablaVuelos.setDefaultRenderer(Object.class, new MyTableRender());
 		scrollVuelos = new JScrollPane(tablaVuelos);
 		
 		setLayout(new BorderLayout());
 		JPanel pCabecera = new JPanel(new FlowLayout());
 			pCabecera.add(titulo);
-			pCabecera.setBackground(Color.lightGray);
+			pCabecera.setBackground(Color.cyan);
 		add(pCabecera, BorderLayout.NORTH);
 		JPanel pGeneral = new JPanel(new GridLayout(2,1));
 			JPanel pOpciones = new JPanel(new FlowLayout());
@@ -88,6 +91,7 @@ public class VentanaPrincipal extends JFrame{
 				if(user.getNombre() != null) {
 					pOpciones.add(btnUsuario);
 				}
+				pOpciones.add(btnBusqueda);
 			pGeneral.add(pOpciones);
 			JPanel pBajo = new JPanel(new BorderLayout());
 				pBajo.add(scrollVuelos, BorderLayout.CENTER);
@@ -107,8 +111,72 @@ public class VentanaPrincipal extends JFrame{
 			}
 		});
 		
+		btnBusqueda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		btnReserva.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaReserva(avion);
+			}
+		});
 		
 		setVisible(true);
+	}
+	
+	//TableModel
+	class TableModel extends AbstractTableModel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		//Añadidos
+		private String[] cabecera = {"Aerolinea","Origen","Destino","Salida","Duracion","Capacidad","Precio"};
+		List<Avion> aviones;
+		
+		public TableModel(List<Avion> aviones) {
+			this.aviones = aviones;
+		}
+		
+		@Override
+		public String getColumnName(int column) {
+			return cabecera[column];
+		}
+
+		@Override
+		public int getRowCount() {
+			return aviones.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return cabecera.length;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Avion a = aviones.get(rowIndex);
+			switch(columnIndex) {
+				case 0: return a.getCompania();
+				case 1: return a.getPaisOrg();
+				case 2: return a.getPaisDest();
+				case 3: return a.getHoraSalida();
+				case 4: return a.getDuracionViaje();
+				case 5: return a.getCapacidad();
+				case 6: return a.getPrecio();
+				default:return null;
+			}
+			
+		}
+		
 	}
 	
 	//Render
@@ -125,8 +193,15 @@ public class VentanaPrincipal extends JFrame{
 			setText(value.toString());
 			setOpaque(true);
 			setHorizontalAlignment(CENTER);
+			if(row % 2 == 0) {
+				setBackground(Color.cyan);
+			}else {
+				setBackground(Color.white);
+			}
 			if(isSelected) {
+				setBackground(Color.lightGray);
 				btnReserva.setEnabled(true);
+				//avion = (Avion)value;
 			}
 			return this;
 		}
