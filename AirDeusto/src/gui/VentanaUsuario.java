@@ -102,6 +102,7 @@ public class VentanaUsuario extends JFrame{
 		btnInfo = new JButton("Mostrar Info");
 			btnInfo.setEnabled(false);
 		btnGuardarDatos = new JButton("Guardar Datos");
+			btnGuardarDatos.setEnabled(false);
 		btnEditar = new JButton("Editar Datos");
 		
 		//Paneles
@@ -177,11 +178,12 @@ public class VentanaUsuario extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				//Guardar datos
-				txtApellido.setEditable(false);
-				txtContrasena.setEditable(false);
-				txtDNI.setEditable(false);
-				txtNombre.setEditable(false);
-				txtnUsuario.setEditable(false);
+				txtApellido.setEnabled(false);
+				txtContrasena.setEnabled(false);
+				txtDNI.setEnabled(false);
+				txtNombre.setEnabled(false);
+				txtnUsuario.setEnabled(false);
+				btnGuardarDatos.setEnabled(false);
 				
 			}
 		});
@@ -190,11 +192,12 @@ public class VentanaUsuario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				txtApellido.setEditable(true);
-				txtContrasena.setEditable(true);
-				txtDNI.setEditable(true);
-				txtNombre.setEditable(true);
-				txtnUsuario.setEditable(true);
+				btnGuardarDatos.setEnabled(true);
+				txtApellido.setEnabled(true);
+				txtContrasena.setEnabled(true);
+				txtDNI.setEnabled(true);
+				txtNombre.setEnabled(true);
+				txtnUsuario.setEnabled(true);
 			}
 		});
 		
