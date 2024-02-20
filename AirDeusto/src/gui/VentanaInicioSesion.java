@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import domain.Avion;
+import domain.Tarjeta;
 import domain.Usuario;
 import main.Main;
 
@@ -97,7 +99,10 @@ public class VentanaInicioSesion extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				//TODO
-				Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());
+				Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());	
+				Tarjeta t = new Tarjeta(10, "Enb", user,new Avion(), 101010101);
+				user.addTarjeta(t);
+				
 				new VentanaPrincipal(user, Main.vuelos);
 				
 			}

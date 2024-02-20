@@ -23,7 +23,7 @@ public class VentanaTarjeta extends JFrame{
 
 	public VentanaTarjeta(Tarjeta trj) {
 		setTitle("Tarjeta ->" + trj.getnEmbarque());
-		setSize(600,400);
+		setSize(600,150);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		

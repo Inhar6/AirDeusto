@@ -10,6 +10,10 @@ public class Tarjeta {
 	private Avion avion;
 
 	//Constructor
+	public Tarjeta() {
+		super();
+	}
+	
 	public Tarjeta(int nEmbarque, String puertaEmbarque, Usuario user, Avion avion, long horaSalida) {
 		super();
 		this.nEmbarque = nEmbarque;

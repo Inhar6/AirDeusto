@@ -2,8 +2,11 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -14,7 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
 import domain.Tarjeta;
@@ -50,6 +53,9 @@ public class VentanaUsuario extends JFrame{
 	private JButton btnInfo;
 	private JButton btnEditar;
 	
+	//Objetos
+	private Tarjeta tarjeta;
+	
 	
 	public VentanaUsuario(Usuario user) {
 		setTitle("Usuario");
@@ -57,6 +63,8 @@ public class VentanaUsuario extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 
+		//Objetos
+		tarjeta = new Tarjeta();
 		//Elementos
 		//Parte Alta
 		cabecera = new JLabel("Perfil de Usuario");
@@ -85,12 +93,14 @@ public class VentanaUsuario extends JFrame{
 		Border lineaCartera = BorderFactory.createLineBorder(Color.RED);
 		Border tituloCartera = BorderFactory.createTitledBorder(lineaCartera, "Cartera");
 		dlmTarjetas = new DefaultListModel<>();
-		//dlmTarjetas.addAll(user.getCartera());
-		
+		//Añadir los valores a la lista
+		dlmTarjetas.addAll(user.getCartera());
 		jLstTarjetas = new JList<Tarjeta>(dlmTarjetas);
+		jLstTarjetas.setCellRenderer(new MyListRender());
 		scroll = new JScrollPane(jLstTarjetas);
 		//Botones
 		btnInfo = new JButton("Mostrar Info");
+			btnInfo.setEnabled(false);
 		btnGuardarDatos = new JButton("Guardar Datos");
 		btnEditar = new JButton("Editar Datos");
 		
@@ -152,19 +162,65 @@ public class VentanaUsuario extends JFrame{
 		
 		p.add(PGeneral, BorderLayout.CENTER);
 		add(p);
+		//ActionListeners
+		btnInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Se abre la ventana tajeta
+				new VentanaTarjeta(tarjeta);
+			}
+		});
+		btnGuardarDatos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//Guardar datos
+				txtApellido.setEditable(false);
+				txtContrasena.setEditable(false);
+				txtDNI.setEditable(false);
+				txtNombre.setEditable(false);
+				txtnUsuario.setEditable(false);
+				
+			}
+		});
+		btnEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				txtApellido.setEditable(true);
+				txtContrasena.setEditable(true);
+				txtDNI.setEditable(true);
+				txtNombre.setEditable(true);
+				txtnUsuario.setEditable(true);
+			}
+		});
 		
 		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		Usuario u = new Usuario();
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new VentanaUsuario(u);
+	class MyListRender extends JLabel implements ListCellRenderer<Tarjeta>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends Tarjeta> list, Tarjeta value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setOpaque(true);
+			setHorizontalAlignment(CENTER);
+			if(isSelected) {
+				setBackground(Color.cyan);
+				btnInfo.setEnabled(true);
+				tarjeta = value;
 			}
-		});
+			return this;
+		}
 		
 	}
 }
