@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -34,6 +35,8 @@ public class VentanaPrincipal extends JFrame{
 	private JLabel titulo;
 	private JLabel destino;
 	private JComboBox<String> comboBox;
+	private JLabel dia;
+	private JTextField txtDia;
 
 	//Tabla
 	private JTable tablaVuelos;
@@ -64,6 +67,8 @@ public class VentanaPrincipal extends JFrame{
 		for(String pais :Main.paises) {
 			comboBox.addItem(pais);
 		}
+		dia = new JLabel("Dia de Salida: ");
+		txtDia = new JTextField(15);
 		//Botones
 		btnUsuario = new JButton("Perfil");
 		btnReserva = new JButton("Reservar Plaza");
@@ -88,6 +93,8 @@ public class VentanaPrincipal extends JFrame{
 			JPanel pOpciones = new JPanel(new FlowLayout());
 				pOpciones.add(destino);	
 				pOpciones.add(comboBox);
+				pOpciones.add(dia);
+				pOpciones.add(txtDia);
 				if(user.getNombre() != null) {
 					pOpciones.add(btnUsuario);
 				}
