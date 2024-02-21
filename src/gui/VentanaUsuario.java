@@ -109,7 +109,7 @@ public class VentanaUsuario extends JFrame{
 		JPanel p = new JPanel(new BorderLayout());
 		JPanel pCabecera = new JPanel(new FlowLayout());
 			pCabecera.add(cabecera);
-			pCabecera.setBackground(Color.lightGray);
+			pCabecera.setBackground(Color.cyan);
 		p.add(pCabecera, BorderLayout.NORTH);
 		JPanel pSur = new JPanel(new GridLayout(1,2));
 			JPanel pSurIzq = new JPanel(new FlowLayout());
@@ -121,13 +121,13 @@ public class VentanaUsuario extends JFrame{
 			pSurDrch.setBackground(Color.lightGray);
 		pSur.add(pSurIzq);
 		pSur.add(pSurDrch);
-		pSur.setBackground(Color.lightGray);
+		pSur.setBackground(Color.cyan);
 		p.add(pSur, BorderLayout.SOUTH);
 		JPanel pEste = new JPanel(new FlowLayout());
-			pEste.setBackground(Color.lightGray);
+			//pEste.setBackground(Color.cyan);
 		p.add(pEste, BorderLayout.EAST);
 		JPanel pOeste = new JPanel(new FlowLayout());
-			pOeste.setBackground(Color.lightGray);
+			//pOeste.setBackground(Color.cyan);
 		p.add(pOeste, BorderLayout.WEST);
 		JPanel PGeneral = new JPanel(new GridLayout(1, 2));
 		JPanel PIzq = new JPanel(new GridLayout(3,1));

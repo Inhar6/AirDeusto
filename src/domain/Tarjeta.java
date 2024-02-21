@@ -5,6 +5,7 @@ public class Tarjeta {
 	//Atributos
 	private int nEmbarque;
 	private String puertaEmbarque;
+	private String asiento;
 	private long horaSalida;
 	private Usuario user;
 	private Avion avion;
@@ -14,13 +15,14 @@ public class Tarjeta {
 		super();
 	}
 	
-	public Tarjeta(int nEmbarque, String puertaEmbarque, Usuario user, Avion avion, long horaSalida) {
+	public Tarjeta(int nEmbarque, String puertaEmbarque, Usuario user, Avion avion, long horaSalida, String asiento) {
 		super();
 		this.nEmbarque = nEmbarque;
 		this.puertaEmbarque = puertaEmbarque;
 		this.user = user;
 		this.avion = avion;
 		this.horaSalida = horaSalida;
+		this.asiento = asiento;
 	}
 	
 	//Getters y Setters
@@ -38,6 +40,14 @@ public class Tarjeta {
 
 	public void setPuertaEmbarque(String puertaEmbarque) {
 		this.puertaEmbarque = puertaEmbarque;
+	}
+	
+	public String getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(String asiento) {
+		this.asiento = asiento;
 	}
 
 	public long getHoraSalida() {
@@ -63,8 +73,8 @@ public class Tarjeta {
 	public void setAvion(Avion avion) {
 		this.avion = avion;
 	}
-
-	//toString
+	
+		//toString
 		@Override
 	public String toString() {
 		return "Tarjeta de Embarque: " + nEmbarque;

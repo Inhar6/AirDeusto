@@ -37,7 +37,9 @@ public class VentanaPrincipal extends JFrame{
 	private JComboBox<String> comboBox;
 	private JLabel dia;
 	private JTextField txtDia;
-
+	private JLabel pasajeros;
+	private JTextField txtPasajeros;
+	
 	//Tabla
 	private JTable tablaVuelos;
 	private JScrollPane scrollVuelos;
@@ -69,6 +71,9 @@ public class VentanaPrincipal extends JFrame{
 		}
 		dia = new JLabel("Dia de Salida: ");
 		txtDia = new JTextField(15);
+		pasajeros = new JLabel("NÂº de pasajeros: ");
+		txtPasajeros = new JTextField(2);
+		
 		//Botones
 		btnUsuario = new JButton("Perfil");
 		btnReserva = new JButton("Reservar Plaza");
@@ -90,16 +95,30 @@ public class VentanaPrincipal extends JFrame{
 			pCabecera.setBackground(Color.cyan);
 		add(pCabecera, BorderLayout.NORTH);
 		JPanel pGeneral = new JPanel(new GridLayout(2,1));
-			JPanel pOpciones = new JPanel(new FlowLayout());
-				pOpciones.add(destino);	
-				pOpciones.add(comboBox);
-				pOpciones.add(dia);
-				pOpciones.add(txtDia);
+			JPanel pGeneralAlto = new JPanel(new GridLayout(1,2));
+				JPanel pGeneralAltoIzq = new JPanel(new GridLayout(4,1));	
+				JPanel pOpciones = new JPanel(new FlowLayout());
+					pOpciones.add(destino);	
+					pOpciones.add(comboBox);
+				pGeneralAltoIzq.add(pOpciones);
+				JPanel pDias = new JPanel(new FlowLayout());
+					pDias.add(dia);
+					pDias.add(txtDia);
+				pGeneralAltoIzq.add(pDias);
+				JPanel pPasajeros = new JPanel(new FlowLayout());
+					pPasajeros.add(pasajeros);
+					pPasajeros.add(txtPasajeros);
+				pGeneralAltoIzq.add(pPasajeros);
+				JPanel pBusqueda = new JPanel(new FlowLayout());
+					pBusqueda.add(btnBusqueda);
+				pGeneralAltoIzq.add(pBusqueda);
+				JPanel pBotones = new JPanel(new FlowLayout());
 				if(user.getNombre() != null) {
-					pOpciones.add(btnUsuario);
-				}
-				pOpciones.add(btnBusqueda);
-			pGeneral.add(pOpciones);
+					pBotones.add(btnUsuario);
+				}		
+				pGeneralAlto.add(pGeneralAltoIzq);
+				pGeneralAlto.add(pBotones);
+			pGeneral.add(pGeneralAlto);
 			JPanel pBajo = new JPanel(new BorderLayout());
 				pBajo.add(scrollVuelos, BorderLayout.CENTER);
 			pGeneral.add(pBajo);
@@ -145,7 +164,7 @@ public class VentanaPrincipal extends JFrame{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		//Añadidos
+		//Aï¿½adidos
 		private String[] cabecera = {"Aerolinea","Origen","Destino","Salida","Duracion","Capacidad","Precio"};
 		List<Avion> aviones;
 		

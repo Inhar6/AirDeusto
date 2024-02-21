@@ -100,7 +100,7 @@ public class VentanaInicioSesion extends JFrame{
 				dispose();
 				//TODO
 				Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());	
-				Tarjeta t = new Tarjeta(10, "Enb", user,new Avion(), 101010101);
+				Tarjeta t = new Tarjeta(10, "Enb", user,new Avion(), 101010101, "10D");
 				user.addTarjeta(t);
 				
 				new VentanaPrincipal(user, Main.vuelos);
