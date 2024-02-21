@@ -5,7 +5,7 @@ public class Tarjeta {
 	//Atributos
 	private int nEmbarque;
 	private String puertaEmbarque;
-	private String asiento;
+	private int asiento;
 	private long horaSalida;
 	private Usuario user;
 	private Avion avion;
@@ -15,7 +15,7 @@ public class Tarjeta {
 		super();
 	}
 	
-	public Tarjeta(int nEmbarque, String puertaEmbarque, Usuario user, Avion avion, long horaSalida, String asiento) {
+	public Tarjeta(int nEmbarque, String puertaEmbarque, Usuario user, Avion avion, long horaSalida, int asiento) {
 		super();
 		this.nEmbarque = nEmbarque;
 		this.puertaEmbarque = puertaEmbarque;
@@ -42,11 +42,11 @@ public class Tarjeta {
 		this.puertaEmbarque = puertaEmbarque;
 	}
 	
-	public String getAsiento() {
+	public int getAsiento() {
 		return asiento;
 	}
 
-	public void setAsiento(String asiento) {
+	public void setAsiento(int asiento) {
 		this.asiento = asiento;
 	}
 

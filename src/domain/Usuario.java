@@ -18,6 +18,12 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
+	public Usuario(String dNI, String nombre, String apellido) {
+		super();
+		DNI = dNI;
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
 	public Usuario(String dNI, String nombre, String apellido, String nUsuario, String contrasena, int edad,
 			List<Tarjeta> cartera) {
 		super();

@@ -15,7 +15,7 @@ public class Avion implements Comparable<Avion>{
 	private long horaSalida;
 	private int precio;
 	private List<Tarjeta> pasajeros;
-	private Map<Integer, Usuario> mapaPasajeros;
+	private Map<Asiento, Tarjeta> mapaPasajeros;
 	
 	//Constructores
 	public Avion() {
@@ -29,7 +29,7 @@ public class Avion implements Comparable<Avion>{
 	}
 	
 	public Avion(int id, String paisOrg, String paisDest, int capacidad, double duracionViaje, long horaSalida,
-			List<Tarjeta> pasajeros,Map<Integer, Usuario> mapaPasajeros, String compania, int precio) {
+			List<Tarjeta> pasajeros,Map<Asiento, Tarjeta> mapaPasajeros, String compania, int precio) {
 		super();
 		this.id = id;
 		this.paisOrg = paisOrg;
@@ -100,11 +100,11 @@ public class Avion implements Comparable<Avion>{
 	public void setPasajeros(List<Tarjeta> pasajeros) {
 		this.pasajeros = pasajeros;
 	}
-	public Map<Integer, Usuario> getMapaPasajeros() {
+	public Map<Asiento, Tarjeta> getMapaPasajeros() {
 		return mapaPasajeros;
 	}
 
-	public void setMapaPasajeros(Map<Integer, Usuario> mapaPasajeros) {
+	public void setMapaPasajeros(Map<Asiento, Tarjeta> mapaPasajeros) {
 		this.mapaPasajeros = mapaPasajeros;
 	}
 	public String getCompania() {
@@ -127,8 +127,8 @@ public class Avion implements Comparable<Avion>{
 	public void addLstPasajero(Tarjeta trj){
 		pasajeros.add(trj);
 	}
-	public void addMapPasajeros(int asiento, Usuario user) {
-		mapaPasajeros.put(asiento, user);
+	public void addMapPasajeros(Asiento asiento, Tarjeta trj) {
+		mapaPasajeros.put(asiento, trj);
 	}
 	//toString
 	

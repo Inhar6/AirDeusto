@@ -37,8 +37,6 @@ public class VentanaPrincipal extends JFrame{
 	private JComboBox<String> comboBox;
 	private JLabel dia;
 	private JTextField txtDia;
-	private JLabel pasajeros;
-	private JTextField txtPasajeros;
 	
 	//Tabla
 	private JTable tablaVuelos;
@@ -71,8 +69,6 @@ public class VentanaPrincipal extends JFrame{
 		}
 		dia = new JLabel("Dia de Salida: ");
 		txtDia = new JTextField(15);
-		pasajeros = new JLabel("Nº de pasajeros: ");
-		txtPasajeros = new JTextField(2);
 		
 		//Botones
 		btnUsuario = new JButton("Perfil");
@@ -96,7 +92,7 @@ public class VentanaPrincipal extends JFrame{
 		add(pCabecera, BorderLayout.NORTH);
 		JPanel pGeneral = new JPanel(new GridLayout(2,1));
 			JPanel pGeneralAlto = new JPanel(new GridLayout(1,2));
-				JPanel pGeneralAltoIzq = new JPanel(new GridLayout(4,1));	
+				JPanel pGeneralAltoIzq = new JPanel(new GridLayout(3,1));	
 				JPanel pOpciones = new JPanel(new FlowLayout());
 					pOpciones.add(destino);	
 					pOpciones.add(comboBox);
@@ -105,10 +101,6 @@ public class VentanaPrincipal extends JFrame{
 					pDias.add(dia);
 					pDias.add(txtDia);
 				pGeneralAltoIzq.add(pDias);
-				JPanel pPasajeros = new JPanel(new FlowLayout());
-					pPasajeros.add(pasajeros);
-					pPasajeros.add(txtPasajeros);
-				pGeneralAltoIzq.add(pPasajeros);
 				JPanel pBusqueda = new JPanel(new FlowLayout());
 					pBusqueda.add(btnBusqueda);
 				pGeneralAltoIzq.add(pBusqueda);
@@ -150,7 +142,8 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaReserva(avion);
+				avion.setCapacidad(500);
+				new VentanaReserva(avion, user);
 			}
 		});
 		
@@ -170,6 +163,11 @@ public class VentanaPrincipal extends JFrame{
 		
 		public TableModel(List<Avion> aviones) {
 			this.aviones = aviones;
+			for(Avion avion : aviones) {
+				if(avion.getCapacidad()< 150) {
+					setBackground(Color.red);
+				}
+			}
 		}
 		
 		@Override
