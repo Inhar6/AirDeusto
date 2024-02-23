@@ -97,14 +97,18 @@ public class VentanaInicioSesion extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				//TODO
-				Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());	
-				Tarjeta t = new Tarjeta(100, "Enb", user,new Avion(), 101010101, 10);
-				user.addTarjeta(t);
+				if("Admin".equals(txtNombreU.getText()) && "Admin".equals(txtContrasena.getText())) {
+					dispose();
+					new VentanaAdmin();
+				}else {
+					dispose();
+					Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());	
+					Tarjeta t = new Tarjeta(100, "Enb", user,new Avion(), 101010101, 10);
+					user.addTarjeta(t);
 				
-				new VentanaPrincipal(user, Main.vuelos);
-				
+					new VentanaPrincipal(user, Main.vuelos);
+				}
 			}
 		});
 		
