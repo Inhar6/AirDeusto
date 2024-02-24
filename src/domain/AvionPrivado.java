@@ -4,15 +4,15 @@ public class AvionPrivado extends Avion {
 	
 	//Elementos
 	private Usuario user;
-	private float tamaño;
+	private float tamanyo;
 	//Constructor
 	public AvionPrivado() {
 		super();
 	}
-	public AvionPrivado(Usuario user, float tamaño) {
+	public AvionPrivado(Usuario user, float tamanyo) {
 		super();
 		this.user = user;
-		this.tamaño = tamaño;
+		this.tamanyo = tamanyo;
 	}
 	//Getters y Setters
 	public Usuario getUser() {
@@ -21,16 +21,16 @@ public class AvionPrivado extends Avion {
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
-	public float getTamaño() {
-		return tamaño;
+	public float getTamanyo() {
+		return tamanyo;
 	}
-	public void setTamaño(float tamaño) {
-		this.tamaño = tamaño;
+	public void setTamanyo(float tamanyo) {
+		this.tamanyo = tamanyo;
 	}
 	//toString
 	@Override
 	public String toString() {
-		return "AvionPrivado [user=" + user + ", tamaño=" + tamaño + "]";
+		return "AvionPrivado [user=" + user + ", tamaï¿½o=" + tamanyo + "]";
 	}
 	
 }

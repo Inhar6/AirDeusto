@@ -7,12 +7,14 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import domain.Avion;
+import domain.Usuario;
 import gui.VentanaPresentacion;
 
 public class Main {
 	
 	public static List<String> paises = new ArrayList<>();
 	public static List<Avion> vuelos = new ArrayList<>();
+	public static List<Usuario> DBlstUsuarios = new ArrayList<>();
 	
 	public Main() {
 		Avion avion1 = new Avion(1, "EE. UU.", "Francia", 200, 8.5, System.currentTimeMillis(), new ArrayList<>(), new HashMap<>(), "Air France", 1200);
