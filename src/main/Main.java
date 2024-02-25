@@ -1,22 +1,24 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import db.DBManager;
 import domain.Avion;
+import domain.Tarjeta;
 import domain.Usuario;
 import gui.VentanaPresentacion;
 
 public class Main {
 	
 	public static List<String> paises = new ArrayList<>();
-	public static List<Avion> vuelos = new ArrayList<>();
-	public static List<Usuario> DBlstUsuarios = new ArrayList<>();
+	public static List<Avion> vuelos = DBManager.obtenerTodosLosAviones();
+	public static List<Usuario> DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 	
 	public Main() {
+		/*
 		Avion avion1 = new Avion(1, "EE. UU.", "Francia", 200, 8.5, System.currentTimeMillis(), new ArrayList<>(), new HashMap<>(), "Air France", 1200);
 		Avion avion2 = new Avion(2, "España", "Italia", 150, 6.5, System.currentTimeMillis(), new ArrayList<>(), new HashMap<>(), "Iberia", 1000);
 		Avion avion3 = new Avion(3, "Alemania", "Japón", 300, 12.0, System.currentTimeMillis(), new ArrayList<>(), new HashMap<>(), "Lufthansa", 1500);
@@ -37,10 +39,19 @@ public class Main {
 		vuelos.add(avion8);
 		vuelos.add(avion9);
 		vuelos.add(avion10);
+		*/
 		for(Avion avion :vuelos) {
 			paises.add(avion.getPaisDest());
+			avion.llenarListasAvion(DBlstUsuarios);
 		}
+		
 		new VentanaPresentacion();
+		System.out.println(DBlstUsuarios + "\n");
+		for(Usuario user : DBlstUsuarios) {
+			for(Tarjeta trj : user.getCartera()) {
+				System.out.println(trj);
+			}
+		}
 	}
 	
 	

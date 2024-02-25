@@ -53,13 +53,13 @@ public class VentanaCompraUsuario extends JFrame{
 		txtNombreU = new JTextField(20);
 		txtApellido = new JTextField(20);
 		txtDNI = new JTextField(20);
+		txtDNI = new JTextField(20);
 		//No esta registrado
 		if(user.getNombre() != null) {
 			txtNombreU.setText(user.getnUsuario());
 			txtApellido.setText(user.getApellido());
 			txtDNI.setText(user.getDNI());
 		}
-		txtDNI = new JTextField(20);
 		lugar = new JLabel("Asiento: " + asiento);
 		precio = new JLabel("Precio: " + avion.getPrecio());
 		

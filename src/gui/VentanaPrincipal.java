@@ -40,6 +40,7 @@ public class VentanaPrincipal extends JFrame{
 	
 	//Tabla
 	private JTable tablaVuelos;
+	private TableModel modelo;
 	private JScrollPane scrollVuelos;
 	
 	//Botones
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends JFrame{
 	private JButton btnBusqueda;
 	
 	//Objetos
-	private Avion avion;
+	private Avion avion ;
 	
 	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
 		setTitle("AirDeusto");
@@ -69,21 +70,21 @@ public class VentanaPrincipal extends JFrame{
 		}
 		dia = new JLabel("Dia de Salida: ");
 		txtDia = new JTextField(15);
-		
+	
 		//Botones
 		btnUsuario = new JButton("Perfil");
 		btnReserva = new JButton("Reservar Plaza");
 			btnReserva.setEnabled(false);
 		btnBusqueda = new JButton("Buscar");
-		
-		//Objetos
-		avion = new Avion();
-		
+	
 		//Tabla
-		TableModel modelo = new TableModel(lstVuelos);
+		modelo = new TableModel(lstVuelos);
 		tablaVuelos = new JTable(modelo);
 		tablaVuelos.setDefaultRenderer(Object.class, new MyTableRender());
 		scrollVuelos = new JScrollPane(tablaVuelos);
+		
+		//Objetos
+		avion = new Avion();
 		
 		setLayout(new BorderLayout());
 		JPanel pCabecera = new JPanel(new FlowLayout());
@@ -142,8 +143,13 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				avion.setCapacidad(500);
-				new VentanaReserva(avion, user);
+				int selectedRow = tablaVuelos.getSelectedRow();
+		        if (selectedRow != -1) {
+		            modelo.setAvionSeleccionado(selectedRow);
+		            avion = modelo.getAvionSeleccionado();
+		            System.out.println(avion.getCapacidad());
+		            new VentanaReserva(avion, user);
+		        }
 			}
 		});
 		
@@ -157,17 +163,14 @@ public class VentanaPrincipal extends JFrame{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+		private Avion avionSeleccionado = new Avion();
 		//A�adidos
 		private String[] cabecera = {"Aerolinea","Origen","Destino","Salida","Duracion","Capacidad","Precio"};
 		List<Avion> aviones;
 		
 		public TableModel(List<Avion> aviones) {
 			this.aviones = aviones;
-			for(Avion avion : aviones) {
-				if(avion.getCapacidad()< 150) {
-					setBackground(Color.red);
-				}
-			}
+			
 		}
 		
 		@Override
@@ -200,6 +203,18 @@ public class VentanaPrincipal extends JFrame{
 			}
 			
 		}
+
+		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			avionSeleccionado = aviones.get(rowIndex);
+		}
+		
+		public Avion getAvionSeleccionado() {
+			return avionSeleccionado;
+		}
+		public void setAvionSeleccionado(int rowIndex) {
+	        avionSeleccionado = aviones.get(rowIndex);
+	    }
 		
 	}
 	
@@ -225,7 +240,7 @@ public class VentanaPrincipal extends JFrame{
 			if(isSelected) {
 				setBackground(Color.lightGray);
 				btnReserva.setEnabled(true);
-				//avion = (Avion)value;
+				avion = modelo.getAvionSeleccionado();
 			}
 			return this;
 		}

@@ -62,7 +62,7 @@ public class VentanaReserva extends JFrame{
 		dtmAsientos = rrellenadoTabla(avion.getCapacidad());
 		asientos = new JTable(dtmAsientos);
 		asientos.setEnabled(false);
-		if(avion.getCapacidad() < 300) {
+		if(avion.getCapacidad() <= 300) {
 			asientos.setDefaultRenderer(Object.class, new MyRender300());
 		}else {
 			asientos.setDefaultRenderer(Object.class, new MyRender1000());
@@ -112,7 +112,7 @@ public class VentanaReserva extends JFrame{
 	public DefaultTableModel rrellenadoTabla(int capacidad) {
 		DefaultTableModel dtm = new DefaultTableModel();
 		int contador=1;
-		if(capacidad < 300) {
+		if(capacidad <= 300) {
 			//Columnas
 			dtm.addColumn("Fila 1");
 			dtm.addColumn("Fila 2");

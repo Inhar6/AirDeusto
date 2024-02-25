@@ -130,8 +130,22 @@ public class Avion implements Comparable<Avion>{
 	public void addMapPasajeros(Asiento asiento, Tarjeta trj) {
 		mapaPasajeros.put(asiento, trj);
 	}
-	//toString
+	public void addPasajerosMapa(Tarjeta trj) {
+		Asiento asiento = new Asiento(trj.getAsiento(), true);
+		mapaPasajeros.put(asiento, trj);
+	}
+	public void llenarListasAvion(List<Usuario> lstUsuario) {
+		for(Usuario user: lstUsuario) {
+			for(Tarjeta trj :user.getCartera() ) {
+				if(trj.getAvion().getId() == this.id) {
+					addLstPasajero(trj);
+					addPasajerosMapa(trj);
+				}
+			}
+		}
+	}
 	
+	//toString
 	
 	@Override
 	public String toString() {

@@ -6,16 +6,15 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import domain.Avion;
-import domain.Tarjeta;
+import db.DBManager;
 import domain.Usuario;
 import main.Main;
 
@@ -101,13 +100,18 @@ public class VentanaInicioSesion extends JFrame{
 				if("Admin".equals(txtNombreU.getText()) && "Admin".equals(txtContrasena.getText())) {
 					dispose();
 					new VentanaAdmin();
-				}else {
+				}else if(DBManager.existeUsuarioLogin(txtNombreU.getText(), txtContrasena.getText())) {
 					dispose();
-					Usuario user = new Usuario("Manolo", "","",""," ",12,new ArrayList<>());	
-					Tarjeta t = new Tarjeta(100, "Enb", user,new Avion(), 101010101, 10);
-					user.addTarjeta(t);
-				
+					System.out.println("Registro exitoso");
+					Usuario user = new Usuario();	
+					for(Usuario u : Main.DBlstUsuarios) {
+						if(txtNombreU.getText().equals(u.getnUsuario())) {
+							user = u;
+						}
+					}
 					new VentanaPrincipal(user, Main.vuelos);
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
 				}
 			}
 		});

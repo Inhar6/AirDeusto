@@ -232,6 +232,7 @@ public class VentanaRegistro extends JFrame{
 				if(camposCompletos()) {
 					Usuario u = new Usuario(txtDNI.getText(), txtNombre.getText(), txtApellido.getText(), txtNombreU.getText(), txtContrasena.getText(), anyos, new ArrayList<>());
 					Main.DBlstUsuarios.add(u);
+					//Implementar la BD
 					new VentanaInicioSesion();
 					dispose();
 				}else {

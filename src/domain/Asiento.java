@@ -40,7 +40,7 @@ public class Asiento {
 	//toString
 	@Override
 	public String toString() {
-		return "" + lugar;
+		return "Asiento: " + lugar;
 	}
 	
 	

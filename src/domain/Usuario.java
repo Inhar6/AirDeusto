@@ -84,12 +84,11 @@ public class Usuario {
 	public void addTarjeta(Tarjeta trj) {
 		cartera.add(trj);
 	}
+	
+	//toString
 	@Override
 	public String toString() {
 		return "Nombre=" + nombre + ", Apellidos=" + apellido + " (" + DNI + ")";
 	}
-	
-	//toString
-	
 	
 }
