@@ -3,8 +3,10 @@ package gui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +26,9 @@ public class VentanaTarjeta extends JFrame{
 	private JLabel horarioSalida;
 	private JLabel puertaEmbarque;
 	private JLabel asiento;
+	
+	//Imagen
+	private JLabel imagen;
 
 	public VentanaTarjeta(Tarjeta trj) {
 		setTitle("Tarjeta ->" + trj.getnEmbarque());
@@ -37,13 +42,18 @@ public class VentanaTarjeta extends JFrame{
 		horarioSalida = new JLabel("Hora de Salida: " + trj.LongAFechaHora(trj.getHoraSalida()) );
 		puertaEmbarque = new JLabel("Puerta de Embarque: " + trj.getPuertaEmbarque());
 		asiento = new JLabel("Asiento: " + trj.getAsiento());
+		//Imagen
+		ImageIcon icono = new ImageIcon("resources/images/LogoAvion.png");
+        Image imagenEscalada = icono.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
+        imagen = new JLabel(iconoEscalado);
 		//Borde
 		Border bNegro = BorderFactory.createLineBorder(Color.BLACK);
 		//Paneles
 		JPanel pGeneral = new JPanel(new GridLayout(3,1));
 			JPanel pAlto = new JPanel(new GridLayout(1, 2));
 			//Imagen
-			pAlto.add(new JPanel());
+			pAlto.add(imagen);
 				JPanel pUsuario = new JPanel(new FlowLayout());
 					pUsuario.add(nombrePasajero);
 			pAlto.add(pUsuario);

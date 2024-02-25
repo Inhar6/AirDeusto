@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import domain.Asiento;
 import domain.Avion;
 import domain.Tarjeta;
@@ -39,6 +41,9 @@ public class DBManager {
     }
     
     //Funciones
+    /*
+     * MAIN
+     */
     public static List<Usuario> obtenerTodosLosUsuarios(){
 		List<Usuario> lst = new ArrayList<>();
     	try (Connection conn = obtenerConexion();
@@ -111,9 +116,49 @@ public class DBManager {
   		}
       	
       }
-  
     
-  //Verificar existencia de usuario ( Login )
+    /*
+     * VENTANA REGISTRO
+     */
+    public static void añadirUsuario(Usuario user) {
+		if(!existeUsuarioRegistro(user.getnUsuario())) {
+			//Añadir un existe usuario
+			String sql = "INSERT INTO Usuario (nombre, apellido, DNI, edad, contraseña, nombre_usuario) " +
+                    "VALUES (?, ?, ?, ?, ?, ?);";
+			try (Connection conn = obtenerConexion();
+					PreparedStatement pstmt = conn.prepareStatement(sql)){
+				pstmt.setString(1, user.getNombre());
+				pstmt.setString(2, user.getApellido());
+				pstmt.setInt(4, user.getEdad());
+				pstmt.setString(3, user.getDNI());
+				pstmt.setString(5, user.getContrasena());
+				pstmt.setString(6, user.getnUsuario());
+				pstmt.executeUpdate();
+				System.out.println("Registro exitoso");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "El usuario ya existe");
+		}
+	}
+    //Verificar existencia de usuario ( Registro )
+  	public static boolean existeUsuarioRegistro(String nombreU) {
+  		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ?;";
+  		try (Connection conn = obtenerConexion();
+  				PreparedStatement pstmt = conn.prepareStatement(sql)){
+  			pstmt.setString(1, nombreU);
+  			ResultSet rs = pstmt.executeQuery();
+  			return rs.next();
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  			return false;
+  		}
+  	}
+    /*
+     * VENTANA INICIO SESION
+     */
+    //Verificar existencia de usuario ( Login )
   	public static boolean existeUsuarioLogin(String nombreU, String contraseña) {
   		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ? AND contraseña = ?";
   		try (Connection conn = obtenerConexion();
@@ -127,12 +172,55 @@ public class DBManager {
   			return false;
   		}
   	}
+  	/*
+  	 * VENTANA USUARIO
+  	 */
+  	//Edita el usuario
+  	public static void editarUsuario(Usuario user) {
+		String sql = "UPDATE Usuario SET nombre = ?, apellido = ?, contraseña = ?, DNI = ?, edad = ? WHERE nombre_usuario = ?;";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, user.getNombre());
+			pstmt.setString(2, user.getApellido());
+			pstmt.setString(3, user.getContrasena());
+			pstmt.setString(4, user.getDNI());
+			pstmt.setInt(5, user.getEdad());
+			pstmt.setString(6, user.getnUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}	
+  	/*
+  	 * VENTANA ADMIN
+  	 */
+  	//Elimina el usuario seleccionado
+  	public static void eliminarUsuario(Usuario user) {
+  		String sql= "DELETE Usuario WHERE nombre_usuario = ?; ";
+  		try (Connection conn = obtenerConexion();
+  				PreparedStatement pstmt = conn.prepareStatement(sql)){
+  			pstmt.setString(1, user.getnUsuario());
+  			pstmt.executeQuery();
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  	}
+  	//Elimina el avion seleccionado
+  	public static void eliminarAvion(Avion avion) {
+  		String sql= "DELETE Avion WHERE id_Avion = ?; ";
+  		try (Connection conn = obtenerConexion();
+  				PreparedStatement pstmt = conn.prepareStatement(sql)){
+  			pstmt.setInt(1, avion.getId());
+  			pstmt.executeQuery();
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  	}
     
-    
-    
-    
-    
-    //TABLAS
+      
+    /*
+     * TABLAS
+     */
     public static void crearTablaUsuario() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){
@@ -180,7 +268,9 @@ public class DBManager {
 		}
 	}
     
-    //Añadir datos
+    /*
+     * DATOS DE EJEMPLO
+     */
     public static void añadirUsuariosEjemplo() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){

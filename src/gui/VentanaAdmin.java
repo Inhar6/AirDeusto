@@ -2,8 +2,11 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -11,10 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
+import db.DBManager;
 import domain.Avion;
 import domain.AvionComercial;
 import domain.AvionPrivado;
@@ -50,9 +56,15 @@ public class VentanaAdmin extends JFrame{
 	private JScrollPane scrollAvionesPrivados;
 	//Botones
 	private JButton btnEliminar;
-	private JButton btnPrivado;
+	private JButton btnAnyadirPrivado;
+	private JButton btnEliminarPrivado;
 	private JButton btnCancelarVuelo;
 	private JButton btnAnyadirVuelo;
+	private JButton btnInfo;
+	
+	//Objetos
+	private Usuario user;
+	private Avion avion;
 	
 	public VentanaAdmin() {
 		setTitle("Ventana del administrador");
@@ -60,26 +72,35 @@ public class VentanaAdmin extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
+		//Objetos
+		user = new Usuario();
+		avion = new Avion();
+		
 		//Elementos
 		cabecera = new JLabel("Administrador");
 		btnEliminar = new JButton("Eliminar Usuario");
-		btnPrivado = new JButton("Añadir Avion Privado");
+		btnAnyadirPrivado = new JButton("Añadir Avion Privado");
+		btnEliminarPrivado = new JButton("Eliminar Avion Privado");
 		btnCancelarVuelo = new JButton("Cancelar Vuelo");
 		btnAnyadirVuelo = new JButton("Añadir Vuelo");
+		btnInfo = new JButton("Mas informacion");
 		
 		btnEliminar.setEnabled(false);
-		btnPrivado.setEnabled(false);
+		btnEliminarPrivado.setEnabled(false);
 		btnCancelarVuelo.setEnabled(false);
+		btnInfo.setEnabled(false);
 		//Lista
 		//Usuarios
 		dlmUsuarios = new DefaultListModel<>();
-		//dlmUsuarios.addAll(lstUsuarios);
+		dlmUsuarios.addAll(Main.DBlstUsuarios);
 		usuarios = new JList<Usuario>(dlmUsuarios);
+		usuarios.setCellRenderer(new UsuarioRender());
 		scrollUsuarios = new JScrollPane(usuarios);
 		//Aviones
 		dlmAviones = new DefaultListModel<>();
 		dlmAviones.addAll(Main.vuelos);
 		aviones = new JList<Avion>(dlmAviones);
+		aviones.setCellRenderer(new AvionRender());
 		scrollAviones = new JScrollPane(aviones);
 		//AvionesComerciales
 		dlmAvionesComercial = new DefaultListModel<>();
@@ -110,7 +131,7 @@ public class VentanaAdmin extends JFrame{
 			pUsuarios.add(scrollUsuarios, BorderLayout.CENTER);
 			JPanel pBotones = new JPanel(new FlowLayout());
 			pBotones.add(btnEliminar);
-			pBotones.add(btnPrivado);
+			pBotones.add(btnInfo);
 			pUsuarios.add(pBotones, BorderLayout.SOUTH);
 			pUsuarios.setBorder(tituloUsuarios);
 		JPanel pAvionesComerciales = new JPanel(new BorderLayout());
@@ -118,6 +139,10 @@ public class VentanaAdmin extends JFrame{
 			pAvionesComerciales.setBorder(tituloAvionesComerciales);
 		JPanel pAvionesPrivados = new JPanel(new BorderLayout());
 			pAvionesPrivados.add(scrollAvionesPrivados, BorderLayout.CENTER);
+			JPanel pBtnAvionesPrivados = new JPanel(new FlowLayout());
+				pBtnAvionesPrivados.add(btnEliminarPrivado);	
+				pBtnAvionesPrivados.add(btnAnyadirPrivado);
+			pAvionesPrivados.add(pBtnAvionesPrivados, BorderLayout.SOUTH);
 			pAvionesPrivados.setBorder(tituloAvionesPrivados);
 		JPanel pAviones = new JPanel(new GridLayout(2,1));
 		pAviones.add(pAvionesComerciales);
@@ -137,7 +162,103 @@ public class VentanaAdmin extends JFrame{
 			pGeneral.add(pAvionesGeneral);
 		add(pGeneral, BorderLayout.CENTER);	
 		
+		//ActionListeners
+		btnEliminar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int option =JOptionPane.showConfirmDialog(null, "Desea eliminar el usuario: "+ user);
+				if(option == JOptionPane.YES_OPTION) {
+					DBManager.eliminarUsuario(user);
+				}
+			}
+		});
+		btnInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaUsuarioAdmin(user);
+				
+			}
+		});
+		btnCancelarVuelo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int option =JOptionPane.showConfirmDialog(null, "Desea eliminar el usuario: "+ user);
+				if(option == JOptionPane.YES_OPTION) {
+					DBManager.eliminarAvion(avion);
+				}
+			}
+		});
+		btnAnyadirVuelo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		setVisible(true);
+	}
+	
+	//Rendres
+	class UsuarioRender extends JLabel implements ListCellRenderer<Usuario>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends Usuario> list, Usuario value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setHorizontalAlignment(CENTER);
+			setOpaque(true);
+			if(index % 2 != 0) {
+				setBackground(Color.cyan);
+			}else {
+				setBackground(Color.white);
+			}
+			if(isSelected) {
+				user = value;
+				btnInfo.setEnabled(true);
+				btnEliminar.setEnabled(true);
+				setBackground(Color.lightGray);
+			}
+			return this;
+		}
+		
+	}
+	
+	class AvionRender extends JLabel implements ListCellRenderer<Avion>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends Avion> list, Avion value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setHorizontalAlignment(CENTER);
+			setOpaque(true);
+			if(index % 2 != 0) {
+				setBackground(Color.cyan);
+			}else {
+				setBackground(Color.white);
+			}
+			if(isSelected) {
+				avion = value;
+				btnCancelarVuelo.setEnabled(true);
+				setBackground(Color.lightGray);
+			}
+			return this;
+		}
+		
 	}
 
 }

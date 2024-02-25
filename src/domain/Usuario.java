@@ -88,7 +88,7 @@ public class Usuario {
 	//toString
 	@Override
 	public String toString() {
-		return "Nombre=" + nombre + ", Apellidos=" + apellido + " (" + DNI + ")";
+		return nombre + ", " + apellido + " (" + DNI + ")";
 	}
 	
 }

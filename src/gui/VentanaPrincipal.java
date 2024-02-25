@@ -147,7 +147,6 @@ public class VentanaPrincipal extends JFrame{
 		        if (selectedRow != -1) {
 		            modelo.setAvionSeleccionado(selectedRow);
 		            avion = modelo.getAvionSeleccionado();
-		            System.out.println(avion.getCapacidad());
 		            new VentanaReserva(avion, user);
 		        }
 			}

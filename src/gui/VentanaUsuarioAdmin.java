@@ -20,11 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
-import db.DBManager;
 import domain.Tarjeta;
 import domain.Usuario;
 
-public class VentanaUsuario extends JFrame{
+public class VentanaUsuarioAdmin extends JFrame{
 
 	/**
 	 * 
@@ -50,15 +49,13 @@ public class VentanaUsuario extends JFrame{
 	private JScrollPane scroll;
 	
 	//Botones
-	private JButton btnGuardarDatos;
 	private JButton btnInfo;
-	private JButton btnEditar;
 	
 	//Objetos
 	private Tarjeta tarjeta;
 	
 	
-	public VentanaUsuario(Usuario user) {
+	public VentanaUsuarioAdmin(Usuario user) {
 		setTitle("Usuario");
 		setSize(700,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,7 +65,7 @@ public class VentanaUsuario extends JFrame{
 		tarjeta = new Tarjeta();
 		//Elementos
 		//Parte Alta
-		cabecera = new JLabel("Perfil de Usuario");
+		cabecera = new JLabel("Informacion de Usuario");
 		nombre = new JLabel("Nombre: ");
 		apellido = new JLabel("Apellido: ");
 		nUsuario = new JLabel("Usuario: ");
@@ -102,9 +99,7 @@ public class VentanaUsuario extends JFrame{
 		//Botones
 		btnInfo = new JButton("Mostrar Info");
 			btnInfo.setEnabled(false);
-		btnGuardarDatos = new JButton("Guardar Datos");
-			btnGuardarDatos.setEnabled(false);
-		btnEditar = new JButton("Editar Datos");
+
 		
 		//Paneles
 		JPanel p = new JPanel(new BorderLayout());
@@ -114,8 +109,6 @@ public class VentanaUsuario extends JFrame{
 		p.add(pCabecera, BorderLayout.NORTH);
 		JPanel pSur = new JPanel(new GridLayout(1,2));
 			JPanel pSurIzq = new JPanel(new FlowLayout());
-			pSurIzq.add(btnEditar);
-			pSurIzq.add(btnGuardarDatos);
 			pSurIzq.setBackground(Color.lightGray);
 			JPanel pSurDrch = new JPanel(new FlowLayout());
 			pSurDrch.add(btnInfo);
@@ -171,40 +164,6 @@ public class VentanaUsuario extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				//Se abre la ventana tajeta
 				new VentanaTarjeta(tarjeta);
-			}
-		});
-		btnGuardarDatos.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//Guardar datos
-				txtApellido.setEnabled(false);
-				txtContrasena.setEnabled(false);
-				txtDNI.setEnabled(false);
-				txtNombre.setEnabled(false);
-				txtnUsuario.setEnabled(false);
-				btnGuardarDatos.setEnabled(false);
-				btnEditar.setEnabled(true);
-				user.setNombre(txtNombre.getText());
-				user.setApellido(txtApellido.getText());
-				user.setContrasena(txtContrasena.getText());
-				user.setDNI(txtDNI.getText());
-				DBManager.editarUsuario(user);
-				
-			}
-		});
-		btnEditar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				btnGuardarDatos.setEnabled(true);
-				txtApellido.setEnabled(true);
-				txtContrasena.setEnabled(true);
-				txtDNI.setEnabled(true);
-				txtNombre.setEnabled(true);
-				btnEditar.setEnabled(false);
 			}
 		});
 		

@@ -7,7 +7,6 @@ import javax.swing.SwingUtilities;
 
 import db.DBManager;
 import domain.Avion;
-import domain.Tarjeta;
 import domain.Usuario;
 import gui.VentanaPresentacion;
 
@@ -25,12 +24,7 @@ public class Main {
 		}
 		
 		new VentanaPresentacion();
-		System.out.println(DBlstUsuarios + "\n");
-		for(Usuario user : DBlstUsuarios) {
-			for(Tarjeta trj : user.getCartera()) {
-				System.out.println(trj);
-			}
-		}
+		
 	}
 	
 	
