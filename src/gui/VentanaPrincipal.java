@@ -165,7 +165,7 @@ public class VentanaPrincipal extends JFrame{
 		private static final long serialVersionUID = 1L;
 		private Avion avionSeleccionado = new Avion();
 		//A�adidos
-		private String[] cabecera = {"Aerolinea","Origen","Destino","Salida","Duracion","Capacidad","Precio"};
+		private String[] cabecera = {"Aerolinea","Origen","Destino","Salida","Duracion","Asientos libres","Precio"};
 		List<Avion> aviones;
 		
 		public TableModel(List<Avion> aviones) {
@@ -195,7 +195,7 @@ public class VentanaPrincipal extends JFrame{
 				case 0: return a.getCompania();
 				case 1: return a.getPaisOrg();
 				case 2: return a.getPaisDest();
-				case 3: return a.getHoraSalida();
+				case 3: return a.LongAFecha(a.getHoraSalida());//a.getHoraSalida();
 				case 4: return a.getDuracionViaje();
 				case 5: return a.getCapacidad();
 				case 6: return a.getPrecio();

@@ -1,5 +1,8 @@
 package domain;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 public class Tarjeta {
 	
 	//Atributos
@@ -73,9 +76,19 @@ public class Tarjeta {
 	public void setAvion(Avion avion) {
 		this.avion = avion;
 	}
+	//Metodos
+	//TODO
+	public String LongAFechaHora(long l) {
+		Date date = new Date(l);
+		//Formato
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        // Formatear la fecha como una cadena
+        String formattedDate = sdf.format(date);
+		return formattedDate;
+	}
 	
-		//toString
-		@Override
+	//toString
+	@Override
 	public String toString() {
 		return "Tarjeta de Embarque: " + nEmbarque;
 	}

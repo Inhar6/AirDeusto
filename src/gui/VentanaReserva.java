@@ -51,7 +51,7 @@ public class VentanaReserva extends JFrame{
 		
 		//Elementos
 		cabecera = new JLabel("Reserva de asientos");
-		info= new JLabel("Mapa de asientos");
+		info= new JLabel("Mapa de asientos (Asientos libres: " + (avion.getCapacidad() - avion.getPasajeros().size()) + ")");
 		asiento = new JLabel("Asiento: ");
 		txtAsiento = new JTextField(3);
 		

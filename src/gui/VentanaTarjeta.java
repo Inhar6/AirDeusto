@@ -34,7 +34,7 @@ public class VentanaTarjeta extends JFrame{
 		//Elementos
 		nombrePasajero = new JLabel("Pasajero: "+trj.getUser().toString());
 		vueloDestino = new JLabel("" + trj.getAvion().getPaisOrg() + " -> " + trj.getAvion().getPaisDest());
-		horarioSalida = new JLabel("Hora de Salida: " + trj.getHoraSalida());
+		horarioSalida = new JLabel("Hora de Salida: " + trj.LongAFechaHora(trj.getHoraSalida()) );
 		puertaEmbarque = new JLabel("Puerta de Embarque: " + trj.getPuertaEmbarque());
 		asiento = new JLabel("Asiento: " + trj.getAsiento());
 		//Borde

@@ -1,5 +1,7 @@
 package domain;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -143,6 +145,14 @@ public class Avion implements Comparable<Avion>{
 				}
 			}
 		}
+	}
+	public String LongAFecha(long l) {
+		Date date = new Date(l);
+		//Formato
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Formatear la fecha como una cadena
+        String formattedDate = sdf.format(date);
+		return formattedDate;
 	}
 	
 	//toString
