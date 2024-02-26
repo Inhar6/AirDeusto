@@ -55,8 +55,8 @@ public class DBManager {
 				String nombreU = rs.getString("nombre_usuario");
 				String DNI =rs.getString("DNI");
 				int edad = rs.getInt("edad");
-				String contraseña = rs.getString("contraseña");
-				Usuario user = new Usuario(DNI, nombre, apellido, nombreU, contraseña, edad, new ArrayList<>());
+				String contrasenya = rs.getString("contraseña");
+				Usuario user = new Usuario(DNI, nombre, apellido, nombreU, contrasenya, edad, new ArrayList<>());
 				lst.add(user);
 			}
 			ResultSet rsCartera = stmt.executeQuery("SELECT * FROM Usuario u, Cartera c WHERE u.nombre_usuario = c.nombre_usuario");
@@ -120,7 +120,7 @@ public class DBManager {
     /*
      * VENTANA REGISTRO
      */
-    public static void añadirUsuario(Usuario user) {
+    public static void anyadirUsuario(Usuario user) {
 		if(!existeUsuarioRegistro(user.getnUsuario())) {
 			//Añadir un existe usuario
 			String sql = "INSERT INTO Usuario (nombre, apellido, DNI, edad, contraseña, nombre_usuario) " +
@@ -159,12 +159,12 @@ public class DBManager {
      * VENTANA INICIO SESION
      */
     //Verificar existencia de usuario ( Login )
-  	public static boolean existeUsuarioLogin(String nombreU, String contraseña) {
+  	public static boolean existeUsuarioLogin(String nombreU, String contrasena) {
   		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ? AND contraseña = ?";
   		try (Connection conn = obtenerConexion();
   				PreparedStatement pstmt = conn.prepareStatement(sql)){
   			pstmt.setString(1, nombreU);
-  			pstmt.setString(2, contraseña);
+  			pstmt.setString(2, contrasena);
   			ResultSet rs = pstmt.executeQuery();
   			return rs.next();
   		} catch (SQLException e) {
@@ -271,7 +271,7 @@ public class DBManager {
     /*
      * DATOS DE EJEMPLO
      */
-    public static void añadirUsuariosEjemplo() {
+    public static void anyadirUsuariosEjemplo() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){
 				for (int i = 1; i <= 10; i++) {
@@ -285,7 +285,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-    public static void añadirAvionesEjemplo() {
+    public static void anyadirAvionesEjemplo() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){
 			
@@ -301,7 +301,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-    public static void añadirCarterasEjemplo() {
+    public static void anyadirCarterasEjemplo() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){
 			for (int i = 1; i <= 10; i++) {
