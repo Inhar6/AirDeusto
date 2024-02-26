@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -99,15 +100,22 @@ public class VentanaReserva extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new VentanaCompraUsuario(avion, user, Integer.parseInt(txtAsiento.getText()));
 				
+				if(validarAsiento(Integer.parseInt(txtAsiento.getText()), avion)) {
+					dispose();
+					new VentanaCompraUsuario(avion, user, Integer.parseInt(txtAsiento.getText()));
+				}else {
+					JOptionPane.showMessageDialog(null, "Asiento seleccionado ocupado");
+				}
 			}
 		});
 		
 		setVisible(true);
 	}
 	
+	/*
+	 * VISUAL
+	 */
 	//Para rrellenar la tabla con algunos parametros
 	public DefaultTableModel rrellenadoTabla(int capacidad) {
 		DefaultTableModel dtm = new DefaultTableModel();
@@ -230,6 +238,19 @@ public class VentanaReserva extends JFrame{
 		}
 		
 	}
-	
-	
+	/*
+	 * METODOS
+	 */
+	public boolean validarAsiento(int asiento, Avion avion) {
+		for(Asiento as: avion.getMapaPasajeros().keySet()) {
+			if(asiento > avion.getCapacidad()) {
+				return false;
+			}else if(as.getLugar() == asiento) {
+				return false;
+			}else {
+				return true;
+			}
+		}
+		return true;
+	}
 }
