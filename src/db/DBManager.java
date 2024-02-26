@@ -55,7 +55,7 @@ public class DBManager {
 				String nombreU = rs.getString("nombre_usuario");
 				String DNI =rs.getString("DNI");
 				int edad = rs.getInt("edad");
-				String contrasenya = rs.getString("contraseña");
+				String contrasenya = rs.getString("contrase�a");
 				Usuario user = new Usuario(DNI, nombre, apellido, nombreU, contrasenya, edad, new ArrayList<>());
 				lst.add(user);
 			}
@@ -123,7 +123,7 @@ public class DBManager {
     public static void anyadirUsuario(Usuario user) {
 		if(!existeUsuarioRegistro(user.getnUsuario())) {
 			//Añadir un existe usuario
-			String sql = "INSERT INTO Usuario (nombre, apellido, DNI, edad, contraseña, nombre_usuario) " +
+			String sql = "INSERT INTO Usuario (nombre, apellido, DNI, edad, contrase�a, nombre_usuario) " +
                     "VALUES (?, ?, ?, ?, ?, ?);";
 			try (Connection conn = obtenerConexion();
 					PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -160,7 +160,7 @@ public class DBManager {
      */
     //Verificar existencia de usuario ( Login )
   	public static boolean existeUsuarioLogin(String nombreU, String contrasena) {
-  		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ? AND contraseña = ?";
+  		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ? AND contrase�a = ?";
   		try (Connection conn = obtenerConexion();
   				PreparedStatement pstmt = conn.prepareStatement(sql)){
   			pstmt.setString(1, nombreU);
@@ -177,7 +177,7 @@ public class DBManager {
   	 */
   	//Edita el usuario
   	public static void editarUsuario(Usuario user) {
-		String sql = "UPDATE Usuario SET nombre = ?, apellido = ?, contraseña = ?, DNI = ?, edad = ? WHERE nombre_usuario = ?;";
+		String sql = "UPDATE Usuario SET nombre = ?, apellido = ?, contrase�a = ?, DNI = ?, edad = ? WHERE nombre_usuario = ?;";
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, user.getNombre());
@@ -229,7 +229,7 @@ public class DBManager {
 					+ "    	apellido VARCHAR(50),\n"
 					+ "    	DNI VARCHAR(50),\n"
 					+ "    	edad INTEGER,\n"
-					+ "    	contraseña VARCHAR(50),\n"
+					+ "    	contrase�a VARCHAR(50),\n"
 					+ "    	nombre_usuario VARCHAR(50) PRIMARY KEY); ");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -276,7 +276,7 @@ public class DBManager {
 				Statement stmt = conn.createStatement()){
 				for (int i = 1; i <= 10; i++) {
 		            String insertUsuario = String.format(
-		                    "INSERT INTO Usuario (nombre, apellido, DNI, edad, contraseña, nombre_usuario) " +
+		                    "INSERT INTO Usuario (nombre, apellido, DNI, edad, contrase�a, nombre_usuario) " +
 		                            "VALUES ('Usuario%d', 'Apellido%d', 'DNI%d', %d, 'clave%d', 'usuario%d');",
 		                    i, i, i, 20 + i, i, i);
 		            stmt.executeUpdate(insertUsuario);
