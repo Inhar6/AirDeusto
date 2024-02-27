@@ -59,7 +59,7 @@ public class VentanaAvion extends JFrame{
 		duracion= new JLabel("Duracion: ");
 		paisDest= new JLabel("Pais Destino: ");
 		precio= new JLabel("Precio: ");
-		capacidad= new JLabel("Precio: ");
+		capacidad= new JLabel("Capacidad: ");
 		txtCompania= new JTextField(20);
 		txtHoraSalida=new JTextField(20);
 		txtDuracion=new  JTextField(20);

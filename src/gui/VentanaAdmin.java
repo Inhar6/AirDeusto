@@ -106,12 +106,12 @@ public class VentanaAdmin extends JFrame{
 		scrollAviones = new JScrollPane(aviones);
 		//AvionesComerciales
 		dlmAvionesComercial = new DefaultListModel<>();
-		//dlmAvionesComercial.addAll(lstAvionesComerciales);
+		dlmAvionesComercial.addAll(Main.DBlstAvionesComerciales);
 		avionesComerciales = new JList<AvionComercial>(dlmAvionesComercial);
 		scrollAvionesComerciales = new JScrollPane(avionesComerciales);
 		//AvionesPrivados
 		dlmAvionesPrivados = new DefaultListModel<>();
-		//dlmAvionesComercial.addAll(lstAvionesComerciales);
+		dlmAvionesPrivados.addAll(Main.DBlstAvionesPrivados);
 		avionesPrivados = new JList<AvionPrivado>(dlmAvionesPrivados);
 		avionesPrivados.setCellRenderer(new AvionPrivadoRender());
 		scrollAvionesPrivados = new JScrollPane(avionesPrivados);
@@ -217,6 +217,11 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				for(AvionPrivado avp : Main.DBlstAvionesPrivados) {
+					if(avp.equals(avionPrivado)) {
+						Main.DBlstAvionesPrivados.remove(avp);
+					}
+				}
 				
 			}
 		});
