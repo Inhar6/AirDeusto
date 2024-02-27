@@ -93,7 +93,6 @@ public class VentanaAvionPrivadoVuelo extends JFrame{
 				
 				JOptionPane.showMessageDialog(null, "Vuelo Privado "+ avionPrivado + " anyadido");
 				dispose();
-				new VentanaPrincipal(user, Main.vuelos);
 			}
 		});
 		

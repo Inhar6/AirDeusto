@@ -1,9 +1,15 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class AvionComercial extends Avion{
+public class AvionComercial extends Avion implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	//Elementos
 	private String producto;
 	private Map<Integer, String> productos;

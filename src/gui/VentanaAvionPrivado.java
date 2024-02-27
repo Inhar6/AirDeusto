@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import domain.AvionPrivado;
 import domain.Usuario;
+import io.Fichero;
 import main.Main;
 
 public class VentanaAvionPrivado extends JFrame{
@@ -86,8 +87,9 @@ public class VentanaAvionPrivado extends JFrame{
 				//TODO
 				/*
 				DBManager.anyadirAvionPrivado(avp);
-				Main.vuelosPrivados.add(avp);
 				*/
+				Main.DBlstAvionesPrivados.add(avp);
+				Fichero.guardarBinAvionesPrivados(Main.DBlstAvionesPrivados);
 				JOptionPane.showMessageDialog(null, "Vuelo Privado "+ avp + " anyadido");
 				dispose();
 				new VentanaAdmin();

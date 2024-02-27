@@ -1,6 +1,13 @@
 package domain;
 
-public class Asiento {
+import java.io.Serializable;
+
+public class Asiento implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Atributos
 	private int lugar;

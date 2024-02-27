@@ -1,11 +1,17 @@
 package domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-public class Avion implements Comparable<Avion>{
+public class Avion implements Comparable<Avion>, Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Atributos
 	private int id;

@@ -1,6 +1,13 @@
 package domain;
 
-public class AvionPrivado extends Avion {
+import java.io.Serializable;
+
+public class AvionPrivado extends Avion implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//Elementos
 	private Usuario user;

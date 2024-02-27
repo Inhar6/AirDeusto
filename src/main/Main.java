@@ -11,14 +11,15 @@ import domain.AvionComercial;
 import domain.AvionPrivado;
 import domain.Usuario;
 import gui.VentanaPresentacion;
+import io.Fichero;
 
 public class Main {
 	
 	public static List<String> paises = new ArrayList<>();
 	public static List<Avion> vuelos = DBManager.obtenerTodosLosAviones();
 	public static List<Usuario> DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
-	public static List<AvionPrivado> DBlstAvionesPrivados = new ArrayList<>();
-	public static List<AvionComercial> DBlstAvionesComerciales = new ArrayList<>();
+	public static List<AvionPrivado> DBlstAvionesPrivados = Fichero.leerBinAvionesPrivados();
+	public static List<AvionComercial> DBlstAvionesComerciales = Fichero.leerBinAvionesComerciales();
 	
 	public Main() {
 
@@ -26,9 +27,8 @@ public class Main {
 			paises.add(avion.getPaisDest());
 			avion.llenarListasAvion(DBlstUsuarios);
 		}
-		
+	
 		new VentanaPresentacion();
-		
 	}
 	
 	

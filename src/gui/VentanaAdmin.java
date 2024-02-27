@@ -108,6 +108,7 @@ public class VentanaAdmin extends JFrame{
 		dlmAvionesComercial = new DefaultListModel<>();
 		dlmAvionesComercial.addAll(Main.DBlstAvionesComerciales);
 		avionesComerciales = new JList<AvionComercial>(dlmAvionesComercial);
+		avionesComerciales.setCellRenderer(new AvionComercialRender());
 		scrollAvionesComerciales = new JScrollPane(avionesComerciales);
 		//AvionesPrivados
 		dlmAvionesPrivados = new DefaultListModel<>();
@@ -308,6 +309,32 @@ public class VentanaAdmin extends JFrame{
 			if(isSelected) {
 				avionPrivado = value;
 				btnEliminarPrivado.setEnabled(true);
+				setBackground(Color.lightGray);
+			}
+			return this;
+		}
+		
+	}
+	
+	class AvionComercialRender extends JLabel implements ListCellRenderer<AvionComercial>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends AvionComercial> list, AvionComercial value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setHorizontalAlignment(CENTER);
+			setOpaque(true);
+			if(index % 2 != 0) {
+				setBackground(Color.green);
+			}else {
+				setBackground(Color.white);
+			}
+			if(isSelected) {
 				setBackground(Color.lightGray);
 			}
 			return this;
