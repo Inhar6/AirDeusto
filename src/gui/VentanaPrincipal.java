@@ -93,6 +93,11 @@ public class VentanaPrincipal extends JFrame{
 		//Lista
 		dlmAvionPrivado = new DefaultListModel<>();
 			//dlmAvionPrivado.addAll(DBlstAvionPrivado);
+		for(AvionPrivado avp : Main.DBlstAvionesPrivados) {
+			if(avp.getUser().equals(user)) {
+				dlmAvionPrivado.addElement(avp);
+			}
+		}
 		lstAvionPrivado = new JList<AvionPrivado>(dlmAvionPrivado);
 		scrollAvionPrivado = new JScrollPane(lstAvionPrivado);
 		

@@ -116,7 +116,6 @@ public class DBManager {
   		}
       	
       }
-    
     /*
      * VENTANA REGISTRO
      */
@@ -219,7 +218,8 @@ public class DBManager {
     /*
      * VENTANA AVION
      */
-    public static void anyadirAvion(Avion avion) {
+    //Anyade un Avion a la BD
+  	public static void anyadirAvion(Avion avion) {
     	String sql ="INSERT INTO Avion (compania, paisOrigen, paisDestino, capacidad, duracion, horaSalidaAvion, precio) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?);";
     	try (Connection conn = obtenerConexion();
@@ -236,7 +236,27 @@ public class DBManager {
  			e.printStackTrace();
  		}
  	}
-  	
+  	/*
+  	 * VENTANA COMPRA USUARIO
+  	 */
+  	//Anyade la Tarjeta a la BD
+  	public static void anyadirTarjeta(Tarjeta trj) {
+    	String sql = "INSERT INTO Cartera (nombre_usuario, id_Avion, nEmbarque, puertaEmabrque, asiento, horaSalida) " +
+                "VALUES (?, ?, ?, ?, ?, ?);";
+    	try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+	        pstmt.setString(1, trj.getUser().getnUsuario());
+	        pstmt.setInt(2, trj.getAvion().getId());
+	        pstmt.setInt(3, trj.getnEmbarque());
+	        pstmt.setString(4, trj.getPuertaEmbarque());
+	        pstmt.setInt(5, trj.getAsiento());
+	        pstmt.setLong(6, trj.getHoraSalida());
+    		pstmt.executeUpdate();
+	        
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
     /*
      * TABLAS
      */
@@ -286,7 +306,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-    
     /*
      * DATOS DE EJEMPLO
      */

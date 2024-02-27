@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import db.DBManager;
 import domain.Avion;
 import domain.Tarjeta;
 import domain.Usuario;
@@ -107,18 +109,23 @@ public class VentanaCompraUsuario extends JFrame{
 					String a =txtApellido.getText();
 					String c =txtDNI.getText();
 					Usuario u = new Usuario(c, n, a);
-					imprimirRecibo(u);
+					long horaSalida = avion.getHoraSalida();
+					Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);
+					imprimirRecibo(trj);
+					JOptionPane.showMessageDialog(null, "Tarjeta de Embarque Imprimida");
 				}
 				long horaSalida = avion.getHoraSalida();
-				Tarjeta trj = new Tarjeta(10, "", user, avion, horaSalida, asiento);
+				Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);
 				user.addTarjeta(trj);
+				DBManager.anyadirTarjeta(trj);
 				dispose();
 			}
 		});
 		
 		setVisible(true);
 	}
-	public void imprimirRecibo(Usuario user) {
+	public void imprimirRecibo(Tarjeta trj) {
 		System.out.println("Recibo");
+		//System.out.println(trj);
 	}
 }
