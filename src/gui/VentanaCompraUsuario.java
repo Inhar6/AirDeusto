@@ -18,6 +18,7 @@ import db.DBManager;
 import domain.Avion;
 import domain.Tarjeta;
 import domain.Usuario;
+import io.Fichero;
 
 public class VentanaCompraUsuario extends JFrame{
 	
@@ -104,21 +105,23 @@ public class VentanaCompraUsuario extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Esta registrado
-				if(user.getNombre() == null) {
+				if(user.getnUsuario() == null) {
 					String n =txtNombre.getText();
 					String a =txtApellido.getText();
 					String c =txtDNI.getText();
 					Usuario u = new Usuario(c, n, a);
 					long horaSalida = avion.getHoraSalida();
-					Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);
-					imprimirRecibo(trj);
+					Tarjeta trj = new Tarjeta(10, "14A", u, avion, horaSalida, asiento);
+					Fichero.crearInforme(trj);
 					JOptionPane.showMessageDialog(null, "Tarjeta de Embarque Imprimida");
+				}else {
+					long horaSalida = avion.getHoraSalida();
+					Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);
+					user.addTarjeta(trj);
+					DBManager.anyadirTarjeta(trj);
+					dispose();
 				}
-				long horaSalida = avion.getHoraSalida();
-				Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);
-				user.addTarjeta(trj);
-				DBManager.anyadirTarjeta(trj);
-				dispose();
+				
 			}
 		});
 		

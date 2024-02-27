@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,6 +24,7 @@ public class Usuario {
 		DNI = dNI;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.cartera = new ArrayList<>();
 	}
 	public Usuario(String dNI, String nombre, String apellido, String nUsuario, String contrasena, int edad,
 			List<Tarjeta> cartera) {
