@@ -114,6 +114,7 @@ public class VentanaCompraUsuario extends JFrame{
 					Tarjeta trj = new Tarjeta(10, "14A", u, avion, horaSalida, asiento);
 					Fichero.crearInforme(trj);
 					JOptionPane.showMessageDialog(null, "Tarjeta de Embarque Imprimida");
+					dispose();
 				}else {
 					long horaSalida = avion.getHoraSalida();
 					Tarjeta trj = new Tarjeta(10, "14A", user, avion, horaSalida, asiento);

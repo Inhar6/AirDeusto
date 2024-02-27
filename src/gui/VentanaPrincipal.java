@@ -183,7 +183,7 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new VentanaAvionPrivado(avionPrivado);
+				new VentanaAvionPrivadoVuelo(avionPrivado, user);
 				
 			}
 		});
