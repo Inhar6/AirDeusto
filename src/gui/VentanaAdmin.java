@@ -65,6 +65,7 @@ public class VentanaAdmin extends JFrame{
 	//Objetos
 	private Usuario user;
 	private Avion avion;
+	private AvionPrivado avionPrivado;
 	
 	public VentanaAdmin() {
 		setTitle("Ventana del administrador");
@@ -75,6 +76,7 @@ public class VentanaAdmin extends JFrame{
 		//Objetos
 		user = new Usuario();
 		avion = new Avion();
+		avionPrivado = new AvionPrivado();
 		
 		//Elementos
 		cabecera = new JLabel("Administrador");
@@ -107,10 +109,11 @@ public class VentanaAdmin extends JFrame{
 		//dlmAvionesComercial.addAll(lstAvionesComerciales);
 		avionesComerciales = new JList<AvionComercial>(dlmAvionesComercial);
 		scrollAvionesComerciales = new JScrollPane(avionesComerciales);
-		//AvionesComerciales
+		//AvionesPrivados
 		dlmAvionesPrivados = new DefaultListModel<>();
 		//dlmAvionesComercial.addAll(lstAvionesComerciales);
 		avionesPrivados = new JList<AvionPrivado>(dlmAvionesPrivados);
+		avionesPrivados.setCellRenderer(new AvionPrivadoRender());
 		scrollAvionesPrivados = new JScrollPane(avionesPrivados);
 		//Border
 		Border lineaAviones = BorderFactory.createLineBorder(Color.BLUE);
@@ -185,13 +188,31 @@ public class VentanaAdmin extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int option =JOptionPane.showConfirmDialog(null, "Desea eliminar el usuario: "+ user);
+				int option =JOptionPane.showConfirmDialog(null, "Desea cancelar el vuelo: "+ avion);
 				if(option == JOptionPane.YES_OPTION) {
 					DBManager.eliminarAvion(avion);
 				}
 			}
 		});
 		btnAnyadirVuelo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new VentanaAvion();
+				
+			}
+		});
+		btnAnyadirPrivado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new VentanaAvionPrivado();
+				
+			}
+		});
+		btnEliminarPrivado.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -254,6 +275,34 @@ public class VentanaAdmin extends JFrame{
 			if(isSelected) {
 				avion = value;
 				btnCancelarVuelo.setEnabled(true);
+				setBackground(Color.lightGray);
+			}
+			return this;
+		}
+		
+	}
+	
+	class AvionPrivadoRender extends JLabel implements ListCellRenderer<AvionPrivado>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends AvionPrivado> list, AvionPrivado value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setHorizontalAlignment(CENTER);
+			setOpaque(true);
+			if(index % 2 != 0) {
+				setBackground(Color.green);
+			}else {
+				setBackground(Color.white);
+			}
+			if(isSelected) {
+				avionPrivado = value;
+				btnEliminarPrivado.setEnabled(true);
 				setBackground(Color.lightGray);
 			}
 			return this;

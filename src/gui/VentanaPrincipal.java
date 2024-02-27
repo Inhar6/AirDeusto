@@ -10,18 +10,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Avion;
+import domain.AvionPrivado;
 import domain.Usuario;
 import main.Main;
 
@@ -43,13 +47,20 @@ public class VentanaPrincipal extends JFrame{
 	private TableModel modelo;
 	private JScrollPane scrollVuelos;
 	
+	//Lista
+	private JList<AvionPrivado> lstAvionPrivado;
+	private DefaultListModel<AvionPrivado> dlmAvionPrivado;
+	private JScrollPane scrollAvionPrivado;
+	
 	//Botones
 	private JButton btnUsuario;
 	private JButton btnReserva;
 	private JButton btnBusqueda;
+	private JButton btnAvionPrivado;
 	
 	//Objetos
 	private Avion avion ;
+	private AvionPrivado avionPrivado;
 	
 	public VentanaPrincipal(Usuario user, List<Avion> lstVuelos) {
 		setTitle("AirDeusto");
@@ -76,7 +87,15 @@ public class VentanaPrincipal extends JFrame{
 		btnReserva = new JButton("Reservar Plaza");
 			btnReserva.setEnabled(false);
 		btnBusqueda = new JButton("Buscar");
+		btnAvionPrivado = new JButton("Reservar vuelo privado");
+			btnAvionPrivado.setEnabled(false);
 	
+		//Lista
+		dlmAvionPrivado = new DefaultListModel<>();
+			//dlmAvionPrivado.addAll(DBlstAvionPrivado);
+		lstAvionPrivado = new JList<AvionPrivado>(dlmAvionPrivado);
+		scrollAvionPrivado = new JScrollPane(lstAvionPrivado);
+		
 		//Tabla
 		modelo = new TableModel(lstVuelos);
 		tablaVuelos = new JTable(modelo);
@@ -85,6 +104,7 @@ public class VentanaPrincipal extends JFrame{
 		
 		//Objetos
 		avion = new Avion();
+		avionPrivado = new AvionPrivado();
 		
 		setLayout(new BorderLayout());
 		JPanel pCabecera = new JPanel(new FlowLayout());
@@ -105,9 +125,11 @@ public class VentanaPrincipal extends JFrame{
 				JPanel pBusqueda = new JPanel(new FlowLayout());
 					pBusqueda.add(btnBusqueda);
 				pGeneralAltoIzq.add(pBusqueda);
-				JPanel pBotones = new JPanel(new FlowLayout());
+				JPanel pBotones = new JPanel(new BorderLayout());
 				if(user.getNombre() != null) {
-					pBotones.add(btnUsuario);
+					pBotones.add(btnUsuario, BorderLayout.NORTH);
+					pBotones.add(scrollAvionPrivado, BorderLayout.CENTER);
+					pBotones.add(btnAvionPrivado, BorderLayout.SOUTH);
 				}		
 				pGeneralAlto.add(pGeneralAltoIzq);
 				pGeneralAlto.add(pBotones);
@@ -149,6 +171,15 @@ public class VentanaPrincipal extends JFrame{
 		            avion = modelo.getAvionSeleccionado();
 		            new VentanaReserva(avion, user);
 		        }
+			}
+		});
+		
+		btnAvionPrivado.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//new VentanaAvionPrivado(avionPrivado);
+				
 			}
 		});
 		
@@ -246,5 +277,29 @@ public class VentanaPrincipal extends JFrame{
 		
 	}
 	
+	class MyListRender extends JLabel implements ListCellRenderer<AvionPrivado>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends AvionPrivado> list, AvionPrivado value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setOpaque(true);
+			setHorizontalAlignment(CENTER);
+			if(isSelected) {
+				avionPrivado = value;
+				btnAvionPrivado.setEnabled(true);
+				setBackground(Color.green);
+			}else {
+				setBackground(Color.white);
+			}
+			return this;
+		}
+		
+	}
 
 }

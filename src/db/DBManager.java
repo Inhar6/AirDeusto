@@ -216,8 +216,27 @@ public class DBManager {
   			e.printStackTrace();
   		}
   	}
-    
-      
+    /*
+     * VENTANA AVION
+     */
+    public static void anyadirAvion(Avion avion) {
+    	String sql ="INSERT INTO Avion (compania, paisOrigen, paisDestino, capacidad, duracion, horaSalidaAvion, precio) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+    	try (Connection conn = obtenerConexion();
+ 				PreparedStatement pstmt = conn.prepareStatement(sql)){
+ 			pstmt.setString(1, avion.getCompania());
+ 			pstmt.setString(2, avion.getPaisOrg());
+ 			pstmt.setString(3, avion.getPaisDest());
+ 			pstmt.setInt(4, avion.getCapacidad());
+ 			pstmt.setDouble(5, avion.getDuracionViaje());
+ 			pstmt.setLong(6, avion.getHoraSalida());
+ 			pstmt.setInt(7, avion.getPrecio());
+ 	        pstmt.executeUpdate();
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}
+ 	}
+  	
     /*
      * TABLAS
      */
