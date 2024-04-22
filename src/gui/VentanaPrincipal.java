@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -80,7 +81,7 @@ public class VentanaPrincipal extends JFrame{
 			comboBox.addItem(pais);
 		}
 		dia = new JLabel("Dia de Salida: ");
-		txtDia = new JTextField(15);
+		txtDia = new JTextField("dd-mm-aaaa",15);
 	
 		//Botones
 		btnUsuario = new JButton("Perfil");
@@ -153,7 +154,6 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				new VentanaUsuario(user);
 			}
 		});
@@ -162,8 +162,8 @@ public class VentanaPrincipal extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				//Filtrado por destino y dia
+				actualizarTabla(filtrar((String)comboBox.getSelectedItem(), txtDia.getText()));
 			}
 		});
 		
@@ -190,6 +190,24 @@ public class VentanaPrincipal extends JFrame{
 		});
 		
 		setVisible(true);
+	}
+	
+	//Metodo filtrar
+	public List<Avion> filtrar(String destino, String dia){
+		List<Avion> lista = new ArrayList<>();
+		for(Avion avion: Main.vuelos) {
+			if(avion.getPaisDest().equals(destino)) {
+				lista.add(avion);
+			}
+		}
+		return lista;
+		
+	}
+	//Metodo ACualizarTabla
+	public void actualizarTabla(List<Avion> vuelosFiltrados) {
+	    modelo = new TableModel(vuelosFiltrados);
+	    tablaVuelos.setModel(modelo);
+	    tablaVuelos.repaint();
 	}
 	
 	//TableModel
