@@ -1,7 +1,8 @@
 package main;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.SwingUtilities;
 
@@ -15,7 +16,7 @@ import io.Fichero;
 
 public class Main {
 	
-	public static List<String> paises = new ArrayList<>();
+	public static Set<String> paises = new TreeSet<>();
 	public static List<Avion> vuelos = DBManager.obtenerTodosLosAviones();
 	public static List<Usuario> DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 	public static List<AvionPrivado> DBlstAvionesPrivados = Fichero.leerBinAvionesPrivados();
