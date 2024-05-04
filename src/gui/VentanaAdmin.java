@@ -193,6 +193,7 @@ public class VentanaAdmin extends JFrame{
 				if(option == JOptionPane.YES_OPTION) {
 					DBManager.eliminarAvion(avion);
 					System.out.println("Vuelo eliminado");
+					repaint();
 				}
 			}
 		});
