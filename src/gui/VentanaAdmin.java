@@ -192,6 +192,7 @@ public class VentanaAdmin extends JFrame{
 				int option =JOptionPane.showConfirmDialog(null, "Desea cancelar el vuelo: "+ avion);
 				if(option == JOptionPane.YES_OPTION) {
 					DBManager.eliminarAvion(avion);
+					System.out.println("Vuelo eliminado");
 				}
 			}
 		});
