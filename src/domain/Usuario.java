@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Usuario implements Serializable{
+public class Usuario implements Serializable, Comparable<Usuario>{
 	
 	/**
 	 * 
@@ -97,6 +97,10 @@ public class Usuario implements Serializable{
 	@Override
 	public String toString() {
 		return nombre + ", " + apellido + " (" + DNI + ")";
+	}
+	@Override
+	public int compareTo(Usuario o) {
+		return this.getEdad() - o.getEdad();
 	}
 	
 }
